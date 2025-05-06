@@ -146,9 +146,7 @@ async function resizeImage(filePath, size, resizeType) {
 
         // Créer le dossier 'resized' s'il n'existe pas
         const resizedDir = path.join(path.dirname(filePath), 'resized');
-        if (!fs.existsSync(resizedDir)) {
-            await fs.promises.mkdir(resizedDir);
-        }
+        await fs.promises.mkdir(resizedDir, { recursive: true });
 
         // Utiliser le même nom de fichier dans le nouveau dossier
         const outputPath = path.join(resizedDir, path.basename(filePath));
