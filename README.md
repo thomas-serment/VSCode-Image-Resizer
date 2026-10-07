@@ -1,75 +1,54 @@
-# VS Code Image Resizer 🍦
+# VSCode Image Resizer
 
-Utiliser VSCE Package car SHARP doit être compilé sur ordi
+[![Release](https://img.shields.io/github/v/release/thomas-serment/VSCode-Image-Resizer)](https://github.com/thomas-serment/VSCode-Image-Resizer/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+Resize JPG, PNG and WebP images from the Explorer, in one click. 1920 px by default.
 
-**VS Code Image Resizer** est une extension pour Visual Studio Code qui vous permet de redimensionner rapidement des images directement depuis l'éditeur de code.
+## Features
 
-## Fonctionnalités
-
-- Redimensionnez facilement une ou plusieurs images à la fois
-- Deux modes de redimensionnement :
-  - Par pixels : définissez une taille fixe en pixels
-  - Par pourcentage : réduisez proportionnellement vos images (1-100%)
-- Sauvegarde automatique dans un dossier 'resized'
-- Prend en charge de nombreux formats d'images : PNG, JPEG, JPG, WEBP, TIFF, HEIC
-- Utilisable directement depuis l'explorateur de fichiers ou via des commandes
+- Right-click one or many images, or a whole folder (subfolders included), and pick a size
+- Two modes: longest side in pixels (1920 by default) or percentage of the original size
+- Keeps the format of each image: a JPG stays a JPG, a PNG stays a PNG, a WebP stays a WebP
+- Never enlarges: images already small enough are left untouched
+- Photos are turned upright using their EXIF orientation, and PNG and WebP transparency is kept
+- Never overwrites a file: existing names get a ` (1)`, ` (2)`... suffix
+- Runs locally in the background with a progress bar you can cancel, and works on every platform with a single file
 
 ## Installation
 
-⚠️ **Note importante** : En raison de la dépendance à la bibliothèque Sharp, l'extension doit être packagée localement pour assurer la compatibilité entre les systèmes d'exploitation.
+1. Download the latest `.vsix` from the [Releases](https://github.com/thomas-serment/VSCode-Image-Resizer/releases/latest) page
+2. In VS Code, run **Extensions: Install from VSIX...** and select the file
 
-Pour installer l'extension :
-1. Clonez le repository
-2. Installez les dépendances : `npm install`
-3. Packagez l'extension localement : `vsce package`
-4. Installez le fichier .vsix généré dans VS Code
+## Usage
 
-## Utilisation
+Right-click images or a folder in the Explorer and choose **Resize Images...**, or run **Image Resizer: Resize Images...** from the Command Palette to browse for files. Choose the mode, then confirm or change the proposed size. Resized files are saved in a `resized` folder next to each source image.
 
-### Redimensionner des images
+| Setting | Default | Description |
+| --- | --- | --- |
+| `imageResizer.defaultSize` | `1920` | Proposed size, in pixels, of the longest side |
+| `imageResizer.quality` | `92` | Quality of JPG and WebP files, from 1 to 100 (PNG is lossless) |
+| `imageResizer.outputFolder` | `resized` | Name of the folder that receives the resized files |
 
-1. Sélectionnez une ou plusieurs images dans l'explorateur de fichiers
-2. Faites un clic droit et choisissez "Bulk Resize Images"
-3. Sélectionnez le mode de redimensionnement :
-   - **Pixels** : entrez la taille souhaitée en pixels (ex: 800)
-   - **Pourcentage** : entrez un pourcentage entre 1 et 100 (ex: 50)
-4. Validez votre choix
+## Good to know
 
-Les images redimensionnées seront automatiquement sauvegardées dans un nouveau dossier 'resized' créé au même emplacement que les images originales.
+- Only JPG, PNG and WebP are resized, so that each image keeps its format. To resize other images (HEIC, AVIF, BMP, TIFF, GIF, SVG...), convert them first with [VSCode Image Converter](https://github.com/thomas-serment/VSCode-Image-Converter)
+- Metadata (EXIF, color profile) is not kept in the resized files, which also removes the GPS position of photos
+- Animated WebP and PNG files are refused, because they would lose their animation
+- Images above 100 megapixels or 256 MB are refused
 
-### Localisation des images redimensionnées
+## Requirements
 
-- Un dossier 'resized' est créé automatiquement dans le même répertoire que les images source
-- Les images redimensionnées conservent leur nom d'origine
-- Structure :
-  ```
-  mon-dossier/
-  ├── image.jpg
-  └── resized/
-      └── image.jpg
-  ```
+VS Code 1.140 or later. Virtual workspaces are not supported. Nothing is downloaded or uploaded: every codec ships inside the extension.
 
-## Formats supportés
+## Third-party software
 
-- PNG (.png)
-- JPEG/JPG (.jpg, .jpeg)
-- WEBP (.webp)
-- TIFF (.tiff)
-- HEIC (.heic)
+Decoding, resizing and encoding rely on the open source WebAssembly codecs of [jSquash](https://github.com/jamsinclair/jSquash) (Apache-2.0). Their license is in [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt), which also ships inside the VSIX.
 
-## Notes de développement
+## Changelog
 
-Cette extension utilise la bibliothèque Sharp pour le traitement des images. En raison des différences de compilation entre les systèmes d'exploitation, il est recommandé de :
+See [CHANGELOG.md](CHANGELOG.md).
 
-- Packager l'extension localement avec `vsce package`
-- Ne pas utiliser les GitHub Actions pour le packaging
-- Recompiler localement si nécessaire pour votre système d'exploitation
+## License
 
-## Contribuer
-
-Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
-
-## Licence
-
-MIT
+[MIT](LICENSE)
