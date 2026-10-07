@@ -1,45 +1,103 @@
 {
-    "name": "vscode-image-resizer",
-    "displayName": "VS Code Image Resizer",
-    "description": "Extension to resize images in Visual Studio Code",
-    "version": "0.0.2",
-    "engines": {
-        "vscode": "^1.61.0"
+  "name": "image-resizer",
+  "displayName": "VSCode Image Resizer",
+  "description": "Resize JPG, PNG and WebP images from the Explorer, keeping their format. 1920 px by default.",
+  "version": "1.1.1",
+  "author": "thomas-serment",
+  "publisher": "thomas-serment",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomas-serment/VSCode-Image-Resizer"
+  },
+  "bugs": {
+    "url": "https://github.com/thomas-serment/VSCode-Image-Resizer/issues"
+  },
+  "homepage": "https://github.com/thomas-serment/VSCode-Image-Resizer#readme",
+  "icon": "images/icon.png",
+  "keywords": [
+    "image",
+    "resize",
+    "jpg",
+    "png",
+    "webp"
+  ],
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
     },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.bulkResizeImages"
-    ],
-    "main": "extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.bulkResizeImages",
-                "title": "Bulk Resize Images"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "command": "extension.bulkResizeImages",
-                    "group": "navigation"
-                }
-            ]
-        }
-    },
-    "publisher": "ThomasTSWD",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ThomasTSWD/code-resize.git"
-    },
-    "icon": "icon.png",
-    "devDependencies": {
-        "@types/vscode": "^1.61.0"
-    },
-    "dependencies": {
-        "sharp": "^0.33.2",
-        "fs": "^0.0.1-security"
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Image Resizer reads and writes files on the local disk."
     }
+  },
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "image-resizer.resize",
+        "title": "Resize Images...",
+        "category": "Image Resizer"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "image-resizer.resize",
+          "when": "explorerResourceIsFolder || resourceExtname =~ /^\\.(jpe?g|jpe|png|webp)$/i",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Image Resizer",
+      "properties": {
+        "imageResizer.defaultSize": {
+          "type": "integer",
+          "default": 1920,
+          "minimum": 1,
+          "maximum": 20000,
+          "markdownDescription": "Proposed size, in pixels, of the longest side of the resized images."
+        },
+        "imageResizer.quality": {
+          "type": "integer",
+          "default": 92,
+          "minimum": 1,
+          "maximum": 100,
+          "markdownDescription": "Quality used for JPG and WebP files (1 to 100). PNG is always lossless."
+        },
+        "imageResizer.outputFolder": {
+          "type": "string",
+          "default": "resized",
+          "markdownDescription": "Name of the folder, created next to each source image, that receives the resized files."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p ./ --noEmit && node esbuild.mjs --production",
+    "compile": "node esbuild.mjs && tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test \"out/**/*.test.js\"",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/png": "^3.1.1",
+    "@jsquash/resize": "^2.1.1",
+    "@jsquash/webp": "^1.5.0",
+    "@types/node": "^24.19.1",
+    "@types/vscode": "^1.140.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
 }
