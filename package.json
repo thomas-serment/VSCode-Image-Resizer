@@ -2,7 +2,7 @@
   "name": "image-resizer",
   "displayName": "VSCode Image Resizer",
   "description": "Resize JPG, PNG and WebP images from the Explorer, keeping their format. 1920 px by default.",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "author": "thomas-serment",
   "publisher": "thomas-serment",
   "license": "MIT",
