@@ -22,12 +22,21 @@ Resize JPG, PNG and WebP images from the Explorer, in one click. 1920 px by defa
 
 ## Usage
 
-Right-click images or a folder in the Explorer and choose **Resize Images...**, or run **Image Resizer: Resize Images...** from the Command Palette to browse for files. Choose the mode, then confirm or change the proposed size. Resized files are saved in a `resized` folder next to each source image.
+Right-click images or a folder in the Explorer and choose **Resize Images...**, or run **Image Resizer: Resize Images...** from the Command Palette to browse for files. Resized files are saved in a `resized` folder next to each source image.
+
+**Asked each time**
+
+| Step | Choices |
+| --- | --- |
+| Mode | Longest side in pixels, or percentage of the original size (the last mode used comes first) |
+| Size | A value is proposed (1920 px, or 50%): confirm it or type another one |
+
+**Settings** (`Ctrl+,`, then search for "Image Resizer"): they are not asked again, change them once.
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `imageResizer.defaultSize` | `1920` | Proposed size, in pixels, of the longest side |
-| `imageResizer.quality` | `92` | Quality of JPG and WebP files, from 1 to 100 (PNG is lossless) |
+| `imageResizer.defaultSize` | `1920` | Size, in pixels, proposed for the longest side |
+| `imageResizer.quality` | `95` | Quality of JPG and WebP files, from 1 to 100 (PNG is lossless) |
 | `imageResizer.outputFolder` | `resized` | Name of the folder that receives the resized files |
 
 ## Good to know
