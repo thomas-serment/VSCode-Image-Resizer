@@ -68,7 +68,7 @@
         },
         "imageResizer.quality": {
           "type": "integer",
-          "default": 92,
+          "default": 95,
           "minimum": 1,
           "maximum": 100,
           "markdownDescription": "Quality used for JPG and WebP files (1 to 100). PNG is always lossless."
