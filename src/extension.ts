@@ -83,7 +83,7 @@ async function resize(context: vscode.ExtensionContext, output: vscode.OutputCha
 		return;
 	}
 	const settings = vscode.workspace.getConfiguration('imageResizer');
-	const quality = integerSetting(settings.get('quality'), 1, 100, 92);
+	const quality = integerSetting(settings.get('quality'), 1, 100, 95);
 	const defaultSize = integerSetting(settings.get('defaultSize'), 1, 20000, 1920);
 	const folder = outputFolderName(settings.get<string>('outputFolder'));
 
